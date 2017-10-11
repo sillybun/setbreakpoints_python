@@ -28,7 +28,7 @@ from setbreakpoints_python import *
 
 row, col = vim.current.window.cursor
 
-if re.search('set_trace()', vim.current.line) is not None
+if re.search('set_trace()', vim.current.line) is not None:
     vim.command('normal dd')
 
 vim.current.buffer[:] = remove_import(list(vim.current.buffer))
@@ -42,6 +42,19 @@ python << endOfPython
 from setbreakpoints_python import *
 
 vim.current.buffer[:] = remove_import(remove_breakpoints(list(vim.current.buffer)))
+
+endOfPython
+endfunction
+
+function! ToggleBreakPoint()
+python << endOfPython
+
+import re
+
+if re.search("set_trace()", vim.current.line) is None:
+	vim.command('call RemoveBreakPoint()')
+else:
+	vim.command('call SetBreakPoint()')
 
 endOfPython
 endfunction
