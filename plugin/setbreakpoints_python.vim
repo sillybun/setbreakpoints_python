@@ -52,7 +52,7 @@ python << endOfPython
 
 from setbreakpoints_python import *
 
-vim.current.buffer[:] = remove_import(remove_breakpoints(list(vim.current.buffer)))
+vim.current.buffer[:], temp = remove_import(remove_breakpoints(list(vim.current.buffer)))
 
 endOfPython
 endfunction
