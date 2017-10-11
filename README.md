@@ -1,5 +1,9 @@
 # setbreakpoints_python
 
+## Introduction
+
+This is a plungin aimed to facilitate inserting and removing breakpoints in python script. It will add/remove set\_trace() in your code
+
 ## Installation
 
 Use your plugin manager of choice.
@@ -16,7 +20,12 @@ Use your plugin manager of choice.
   - Add `Plug 'https://github.com/sillybun/setbreakpoints_python'` to .vimrc
   - Run `:PlugInstall`
 
-## Todo
+## Usage
 
-1. Write a plugin
-2. Write documentation
+Add this into your .vimrc:
+
+```
+autocmd FileType python nnoremap <F12> :call ToggleBreakPoint()<Cr>
+```
+
+When you want to insert or remove a breakpoint at a certain sentence, just click F12.
