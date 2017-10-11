@@ -12,10 +12,16 @@ python sys.path.append(vim.eval('expand("<sfile>:h")'))
 function! SetBreakPoint()
 python << endOfPython
 
-from setbreakpoints_python import *
+import setbreakpoints_python
+row, col = vim.current.window.cursor
 
 vim.command('normal Oset_trace()')
-vim.current.buffer[:] = create_import(list(vim.current.buffer[:]))
+vim.current.buffer[:], flag = setbreakpoints_python.create_import(list(vim.current.buffer))
+
+if flag:
+	vim.current.window.cursor = (row + 2, col)
+else:
+	vim.current.window.cursor = (row + 1, col)
 
 endOfPython
 endfunction
@@ -28,10 +34,15 @@ from setbreakpoints_python import *
 
 row, col = vim.current.window.cursor
 
-if re.search('set_trace()', vim.current.line) is not None:
+if re.search('set_trace\(\)', vim.current.line) is not None:
     vim.command('normal dd')
 
-vim.current.buffer[:] = remove_import(list(vim.current.buffer))
+print(vim.current.buffer)
+
+vim.current.buffer[:], flag = remove_import(list(vim.current.buffer))
+
+if flag and row > 1:
+	vim.current.window.cursor = (row - 1, col)
 
 endOfPython
 endfunction
@@ -51,10 +62,18 @@ python << endOfPython
 
 import re
 
-if re.search("set_trace()", vim.current.line) is None:
-	vim.command('call RemoveBreakPoint()')
+row, memcol = vim.current.window.cursor
+
+if re.search("set_trace\(\)", vim.current.line) is None:
+	if row != 1 and re.search("set_trace\(\)", vim.current.buffer[row-2]) is not None:
+		vim.command('normal k')
+		vim.command('call RemoveBreakPoint()')
+		row, col = vim.current.window.cursor
+		vim.current.window.cursor = (row, memcol)
+	else:
+		vim.command('call SetBreakPoint()')
 else:
-	vim.command('call SetBreakPoint()')
+	vim.command('call RemoveBreakPoint()')
 
 endOfPython
 endfunction
