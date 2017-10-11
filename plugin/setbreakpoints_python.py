@@ -19,4 +19,4 @@ def remove_set_trace(code):
 
 
 def remove_breakpoints(code):
-    return remove_import(remove_set_trace(code))
+    return (remove_import(remove_set_trace(code)))[0]
