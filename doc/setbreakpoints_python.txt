@@ -1,0 +1,27 @@
+*setbreakpoints_python.txt* A short multi line description of your plugin
+
+===============================================================================
+CONTENTS                                                *setbreakpoints_python*
+
+    1. Intro .................................... |setbreakpoints_python-intro|
+    2. Requirements ...................... |setbreakpoints_python-requirements|
+    3. Usage .................................... |setbreakpoints_python-usage|
+    4. Licence ................................ |setbreakpoints_python-licence|
+===============================================================================
+1. Intro                                          *setbreakpoints_python-intro*
+
+Overview of plugin
+
+2. Requirements                            *setbreakpoints_python-requirements*
+
+What additional programs are required to run the plugin
+
+3. Usage                                          *setbreakpoints_python-usage*
+
+How to use the plugin. What functions does it give the user?
+
+4. Licence                                      *setbreakpoints_python-licence*
+
+This is open source make sure to include a licence
+
+vim:ft=help
