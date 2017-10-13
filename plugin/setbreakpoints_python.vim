@@ -1,16 +1,16 @@
 " --------------------------------
 " Add our plugin to the path
 " --------------------------------
-python import sys
-python import vim
-python import re
-python sys.path.append(vim.eval('expand("<sfile>:h")'))
+python3 import sys
+python3 import vim
+python3 import re
+python3 sys.path.append(vim.eval('expand("<sfile>:h")'))
 
 " --------------------------------
 "  Function(s)
 " --------------------------------
 function! SetBreakPoint()
-python << endOfPython
+python3 << endOfPython
 
 import setbreakpoints_python
 row, col = vim.current.window.cursor
@@ -28,7 +28,7 @@ endfunction
 
 
 function! RemoveBreakPoint()
-python << endOfPython
+python3 << endOfPython
 
 from setbreakpoints_python import *
 
@@ -48,7 +48,7 @@ endOfPython
 endfunction
 
 function! RemoveAllBreakPoints()
-python << endOfPython
+python3 << endOfPython
 
 from setbreakpoints_python import *
 
@@ -58,7 +58,7 @@ endOfPython
 endfunction
 
 function! ToggleBreakPoint()
-python << endOfPython
+python3 << endOfPython
 
 import re
 

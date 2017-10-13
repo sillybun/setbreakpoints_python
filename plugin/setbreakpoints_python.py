@@ -1,9 +1,10 @@
+from pdb import set_trace
 import re
 
 
 def create_import(code):
     if 'from pdb import set_trace' in code:
-        return (code, False)
+        return (code,   False)
     return (["from pdb import set_trace"] + code, True)
 
 
