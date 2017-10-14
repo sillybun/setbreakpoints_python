@@ -16,7 +16,7 @@ import setbreakpoints_python
 row, col = vim.current.window.cursor
 
 vim.command('normal Oset_trace()')
-vim.current.buffer[:], flag = setbreakpoints_python.create_import(list(vim.current.buffer))
+vim.current.buffer[:], flag = setbreakpoints_python.create_import(list(vim.current.buffer), vim.eval('g:setbreakpoint_pdb'))
 
 if flag:
 	vim.current.window.cursor = (row + 2, col)
@@ -39,7 +39,7 @@ if re.search('set_trace\(\)', vim.current.line) is not None:
 
 print(vim.current.buffer)
 
-vim.current.buffer[:], flag = remove_import(list(vim.current.buffer))
+vim.current.buffer[:], flag = remove_import(list(vim.current.buffer), vim.eval('g:setbreakpoint_pdb'))
 
 if flag and row > 1:
 	vim.current.window.cursor = (row - 1, col)
@@ -52,7 +52,7 @@ python3 << endOfPython
 
 from setbreakpoints_python import *
 
-vim.current.buffer[:] = remove_breakpoints(list(vim.current.buffer))
+vim.current.buffer[:] = remove_breakpoints(list(vim.current.buffer), vim.eval('g:setbreakpoint_pdb'))
 
 endOfPython
 endfunction
@@ -77,6 +77,10 @@ else:
 
 endOfPython
 endfunction
+
+if !exists('g:setbreakpoint_pdb')
+	let g:setbreakpoint_pdb = 1
+endif
 
 " --------------------------------
 "  Expose our commands to the user
