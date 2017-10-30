@@ -9,10 +9,27 @@ class Setbreakpoints_PythonTests(unittest.TestCase):
                  'for i in range(10):',
                  '\tset_trace()',
                  '\tprint(i)']
-        expected_output = ['a = 1',
+        expected_output = ['from pdb import set_trace',
+                           'a = 1',
                            'for i in range(10):',
+                           '\tset_trace()',
                            '\tprint(i)']
-        actual_output = sut.remove_breakpoints(input)
+        actual_output = sut.create_import(input, True)
+        self.assertEqual(expected_output, actual_output)
+
+    def test_example_fail1(self):
+        input = ['#!/bin/python',
+                 'a = 1',
+                 'for i in range(10):',
+                 '\tset_trace()',
+                 '\tprint(i)']
+        expected_output = ['#!/bin/python',
+                           'from pdb import set_trace',
+                           'a = 1',
+                           'for i in range(10):',
+                           '\tset_trace()',
+                           '\tprint(i)']
+        actual_output = sut.create_import(input, True)
         self.assertEqual(expected_output, actual_output)
 
 
